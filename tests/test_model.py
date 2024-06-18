@@ -7,7 +7,7 @@ model_data = {
     "document": [
         "Hello,",
         {
-            "model": "ibm/granite-20b-code-instruct-v2",
+            "model": "ibm/granite-20b-code-instruct",
             "parameters": {
                 "decoding_method": "greedy",
                 "stop_sequences": ["!"],
@@ -34,7 +34,7 @@ model_chain_data = {
             "def": "SOMEONE",
             "document": [
                 {
-                    "model": "ibm/granite-20b-code-instruct-v2",
+                    "model": "ibm/granite-20b-code-instruct",
                     "parameters": {
                         "decoding_method": "greedy",
                         "stop_sequences": ["!"],
@@ -90,7 +90,7 @@ multi_shot_data = {
             "def": "LOCATION",
             "document": [
                 {
-                    "model": "ibm/granite-20b-code-instruct-v2",
+                    "model": "ibm/granite-20b-code-instruct",
                     "input": {
                         "document": [
                             "Question: What is the weather in London?\n",
@@ -127,7 +127,7 @@ model_data_missing_parameters = {
     "document": [
         "Hello,\n",
         {
-            "model": "ibm/granite-20b-code-instruct-v2",
+            "model": "ibm/granite-20b-code-instruct",
             "parameters": {
                 "stop_sequences": ["."],
             },
@@ -148,7 +148,7 @@ def test_data_missing_parameters():
 
 model_parameter = {
     "description": "Hello world with a variable",
-    "defs": {"model": "ibm/granite-20b-code-instruct-v2"},
+    "defs": {"model": "ibm/granite-20b-code-instruct"},
     "document": [
         "Hello,",
         {
@@ -170,7 +170,7 @@ def test_model_parameter():
 
 model_parameter1 = {
     "description": "Hello world with a variable",
-    "defs": {"model": "granite-20b-code-instruct-v2"},
+    "defs": {"model": "granite-20b-code-instruct"},
     "document": [
         "Hello,",
         {

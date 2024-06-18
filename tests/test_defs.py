@@ -9,7 +9,7 @@ defs_data = {
         "NAME": {
             "document": [
                 {
-                    "model": "ibm/granite-20b-code-instruct-v2",
+                    "model": "ibm/granite-20b-code-instruct",
                     "input": {"get": "HELLO"},
                     "parameters": {
                         "decoding_method": "greedy",

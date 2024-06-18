@@ -2,6 +2,6 @@ description: Granite question
 document:
 - |
   Q: What is the capital of France?
-- model: ibm/granite-20b-code-instruct-v2
+- model: ibm/granite-20b-code-instruct
   parameters:
     decoding_method: greedy

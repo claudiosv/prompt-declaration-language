@@ -9,7 +9,7 @@ defs:
       - model: ibm/granite-20b-multilingual
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct-v2
+- model: ibm/granite-20b-code-instruct
   def: GEN
   parameters:
     stop_sequences:
