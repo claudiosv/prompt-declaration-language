@@ -8,6 +8,9 @@ document:
   parameters:
     decoding_method: greedy
     max_new_tokens: 1024
+    stop_sequences:
+      - '<|endoftext|>'
+    include_stop_sequence: false
 - "\nFind a random number between 1 and 20\n"
 - def: N
   lan: python
@@ -15,14 +18,14 @@ document:
   - "import random\n"
   - result = random.randint(1, 20)
   show_result: true
-- "\nNow computing fib("
+- "\nNow computing fibonacci("
 - get: N
 - ")\n"
 - def: RESULT
   lan: python
   code:
   - get: CODE
-  - result = fib(
+  - result = fibonacci(
   - get: N
   - )
   show_result: false
