@@ -170,7 +170,7 @@ def test_model_parameter():
 
 model_parameter1 = {
     "description": "Hello world with a variable",
-    "defs": {"model": "granite-20b-code-instruct"},
+    "defs": {"model": "granite-20b-code-instruct-v2"},
     "document": [
         "Hello,",
         {
