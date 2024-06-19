@@ -14,7 +14,7 @@ var_data = {
             "def": "NAME",
             "document": [
                 {
-                    "model": "ibm/granite-20b-code-instruct",
+                    "model": "ibm/granite-20b-code-instruct-v2",
                     "parameters": {
                         "decoding_method": "greedy",
                         "stop_sequences": ["!"],
