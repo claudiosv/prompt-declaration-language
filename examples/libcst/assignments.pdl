@@ -1,0 +1,80 @@
+description: Code explanation example
+document:
+- read:
+  def: QUERY
+  message: "Please paste a Python snippet. Ctrl-D to save it."
+  multiline: true
+  show_result: false
+- def: VARIABLES
+  lan: python
+  show_result: false
+  code:
+  - |
+    import libcst as cst
+    class AssignmentCollector(cst.CSTVisitor):
+      def __init__(self):
+          # sets don't preserve order, so let's use a list
+          self.assignments = []
+      def visit_AssignTarget(self, node: cst.ClassDef):
+          val = node.target.value
+          if val not in self.assignments: 
+            self.assignments.append(val)
+    source = """
+    {{ QUERY }}
+    """
+    visitor = AssignmentCollector()
+    cst.parse_module(source).visit(visitor)
+    result = list(visitor.assignments)
+- model: ibm/granite-20b-code-instruct-v2
+  def: EXPLANATION
+  parameters:
+    decoding_method: greedy
+    max_new_tokens: 1024
+  show_result: false
+  input:
+    document:
+    - |
+      Here is a Python snippet:
+      {{ QUERY }}
+
+
+      Explain what the following variables do, how they are used, and what role they play:
+      {{ VARIABLES|join(':\n') }}:
+
+      Answer:
+- "The variable assignments ({{ VARIABLES|join(', ') }}) are explained as follows:\n{{ EXPLANATION}}\n"
+- model: ibm/granite-20b-code-instruct-v2
+  def: better_names
+  # spec: {old_name: str, new_name: str}
+  parser: json
+  input: 
+    document:
+    - |
+      Given the following explanations, create a JSON object with fields '<OLD NAME>' and '<NEW NAME>' for each variable. <NEW NAME> should be a better PEP8 name for the variable based on the explanation, but it may be unchanged.
+      For example: { "df12": "df_results"}
+
+      Variables:
+      {{ EXPLANATION }}
+
+      You MUST respond with valid JSON.
+      Answer:
+    # - for: 
+    #     question: "{{ data.questions }}"
+    #     answer: "{{ data.answers }}"
+    #   repeat:
+    #     - |
+    #       {{ question }}
+    #       {{ answer }}
+    # - > 
+    #   Question: Create a JSON object with fields 'name' and 'age' 
+    #   and set them appropriately. 
+  parameters:
+    decoding_method: greedy
+    stop_sequences:
+    - '}'
+    include_stop_sequence: true
+- "{{ better_names }}"
+# - def: parsed_names
+#   parser: json
+#   show_results: true
+#   input: "{{better_names}}"
