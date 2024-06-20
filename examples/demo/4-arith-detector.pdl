@@ -146,4 +146,4 @@ document:
   def: RESULT
   show_result: true
 - "\n"
-- model: ibm/granite-13b-chat-v2
+- model: ibm/granite-13b-instruct-v2
