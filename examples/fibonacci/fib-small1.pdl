@@ -6,9 +6,6 @@ document:
   parameters:
     max_new_tokens: 1024
     decoding_method: greedy
-    stop_sequences:
-      - '<|endoftext|>'
-    include_stop_sequence: false
 - "What is the name of the function above?\n"
 - def: FUNCTION
   model: ibm/granite-20b-code-instruct-v2
@@ -25,12 +22,12 @@ document:
   - "import random\n"
   - result = random.randint(1, 20)
   show_result: false
-- "\nfibonacci("
+- "\nfib("
 - get: N
 - ') = '
 - lan: python
   code:
   - get: CODE
-  - result = fibonacci(
+  - result = fib(
   - get: N
   - )

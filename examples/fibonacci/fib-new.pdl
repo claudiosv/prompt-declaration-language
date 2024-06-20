@@ -5,10 +5,6 @@ document:
   input:
     document:
       - "Write just the definition for an efficient Python function to compute the Fibonacci sequence\n\n"
-  parameters:
-    stop_sequences:
-      - '<|endoftext|>'
-    include_stop_sequence: false
 - "\nFind a random number between 1 and 20\n"
 - def: N
   lan: python
@@ -17,13 +13,13 @@ document:
     import random
     result = random.randint(1, 20)
   show_result: true
-- "\nNow computing fibonacci({{ N }})\n"
+- "\nNow computing fib({{ N }})\n"
 - def: RESULT
   lan: python
   code:
   - |
     {{ CODE }}
-    result = fibonacci( {{ N}} )
+    result = fib( {{ N }} )
   show_result: false
 - "The result is: {{ RESULT }}"
 - "\n\nExplain what the above code does and what the result means\n\n"

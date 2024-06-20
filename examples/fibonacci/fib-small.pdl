@@ -8,23 +8,20 @@ document:
   parameters:
     decoding_method: greedy
     max_new_tokens: 1024
-    stop_sequences:
-      - '<|endoftext|>'
-    include_stop_sequence: false
 - def: N
   lan: python
   code:
   - | 
     import random
     result = random.randint(1, 20)
-  show_result: true
-- "\nfibonacci("
+  show_result: false
+- "\nfib("
 - get: N
 - ') = '
 - lan: python
   code:
   - get: CODE
-  - result = fibonacci(
+  - result = fib(
   - get: N
   - )
 
