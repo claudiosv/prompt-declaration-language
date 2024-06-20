@@ -57,7 +57,7 @@ Hello, world!
 description: Hello world calling a model
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   parameters:
     decoding_method: greedy
     stop_sequences:
@@ -65,7 +65,7 @@ document:
     include_stop_sequence: true
 ```
 
-In this program ([file](../examples/tutorial/calling_llm.yaml)), the `document` starts with the word `Hello,`, and we call a model (`ibm/granite-20b-code-instruct`) with this as input prompt. 
+In this program ([file](../examples/tutorial/calling_llm.yaml)), the `document` starts with the word `Hello,`, and we call a model (`ibm/granite-20b-code-instruct-v2`) with this as input prompt. 
 The model is passed some parameters including the `decoding_method` and `stop_sequences`, which are to be included in the output. Since the `input` field is not specified in the model call, the entire document up that point is passed to the model as input context. 
 
 In general, a model call accepts the same parameters as BAM's [text generation](https://bam.res.ibm.com/docs/api-reference#text-generation) interface, with the exception that we provide some default values when the following parameters are missing:
@@ -117,7 +117,7 @@ Consider the following example ([file](../examples/tutorial/variable_def_use.yam
 description: Hello world with variable def and use
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   def: GEN
   parameters:
     decoding_method: greedy
@@ -143,7 +143,7 @@ In PDL, we can declaratively chain models together as in the following example (
 description: Hello world with model chainings
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   parameters:
     stop_sequences:
     - '!'
@@ -173,7 +173,7 @@ Suppose we want to define a translation function that takes a string and calls a
 description: Hello world with functions
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   def: GEN
   parameters:
     stop_sequences:
@@ -226,7 +226,7 @@ defs:
       - model: ibm/granite-20b-multilingual
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   def: GEN
   parameters:
     stop_sequences:
@@ -259,7 +259,7 @@ Consider the same example as above, but with `show_result` set to `false` ([file
 description: Hello world with functions
 document:
 - Hello,
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   def: GEN
   parameters:
     stop_sequences:
@@ -398,7 +398,7 @@ document:
   def: QUERY
   message: "Ask a query: "
   show_result: false
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   input:
     document: |-
       Question: What is the weather in London?
@@ -422,7 +422,7 @@ document:
   input: '{{ LOCATION }}'
   def: WEATHER
   show_result: false
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   input: >
     Explain what the weather is from the following JSON:
     `{{ WEATHER }}`
@@ -458,7 +458,7 @@ document:
 - read: examples/code/ground_truth.txt
   def: TRUTH
   show_result: False
-- model: ibm/granite-20b-code-instruct
+- model: ibm/granite-20b-code-instruct-v2
   def: EXPLANATION
   show_result: False
   parameters:
@@ -582,7 +582,7 @@ document:
 - repeat:
   - "\nQuestion: "
   - def: QUESTION
-    model: ibm/granite-20b-code-instruct
+    model: ibm/granite-20b-code-instruct-v2
     parameters:
       stop_sequences:
       - Answer
@@ -590,7 +590,7 @@ document:
   - "Answer: Let's think step by step.\n"
   - repeat:
     - def: REASON_OR_CALC
-      model: ibm/granite-20b-code-instruct
+      model: ibm/granite-20b-code-instruct-v2
       parameters:
         stop_sequences:
         - '<<'
@@ -598,7 +598,7 @@ document:
     - if: '{{ REASON_OR_CALC.endswith("<<") }}'
       then:
       - def: EXPR
-        model: ibm/granite-20b-code-instruct
+        model: ibm/granite-20b-code-instruct-v2
         parameters:
           stop_sequences:
           - '='

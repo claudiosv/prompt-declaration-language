@@ -37,7 +37,7 @@ cond_data = {
                     "def": "QUESTION",
                     "document": [
                         {
-                            "model": "ibm/granite-20b-code-instruct",
+                            "model": "ibm/granite-20b-code-instruct-v2",
                             "parameters": {
                                 "decoding_method": "greedy",
                                 "max_new_tokens": 2048,
@@ -54,7 +54,7 @@ cond_data = {
                             "def": "REASON_OR_CALC",
                             "document": [
                                 {
-                                    "model": "ibm/granite-20b-code-instruct",
+                                    "model": "ibm/granite-20b-code-instruct-v2",
                                     "parameters": {
                                         "decoding_method": "greedy",
                                         "max_new_tokens": 2048,
@@ -70,7 +70,7 @@ cond_data = {
                                     "def": "EXPR",
                                     "document": [
                                         {
-                                            "model": "ibm/granite-20b-code-instruct",
+                                            "model": "ibm/granite-20b-code-instruct-v2",
                                             "parameters": {
                                                 "decoding_method": "greedy",
                                                 "max_new_tokens": 2048,
@@ -102,9 +102,11 @@ cond_data = {
 }
 
 assert_data = [
-    "Question: Noah charges $60 for a large painting and $30 for a small painting.\n",
+    "Question: Noah charges $60 for a large painting and $30 for a small "
+    "painting.\n",
     "Last month he sold eight large paintings and four small paintings.\n",
-    "If he sold twice as much this month, how much is his sales for this month?\n\n",
+    "If he sold twice as much this month, how much is his sales for this month?\n",
+    "\n",
     "Answer: Let's think step by step.\n",
     "He sold 8 large paintings and 4 small paintings last month.\n",
     "He sold twice as many this month.\n",
@@ -112,10 +114,14 @@ assert_data = [
     "4 small paintings x $30 = << 4*30= 120 >> 120\n",
     "So he sold << 480+120= 600 >> 600 paintings last month.\n",
     "Therefore he sold << 600*2= 1200 >> this month.\n",
-    "The answer is $1200.\n\n",
-    "Question: Noah charges $30 for a large painting and $10 for a small painting.\n",
+    "The answer is $1200.\n",
+    "\n",
+    "Question: Noah charges $30 for a large painting and $10 for a small "
+    "painting.\n",
     "Last month he sold five large paintings and three small paintings.\n",
-    "If he sold three times as much this month, how much is his sales for this month?\n\n",
+    "If he sold three times as much this month, how much is his sales for this "
+    "month?\n",
+    "\n",
     "Answer: Let's think step by step.\n",
     "He sold 5 large paintings and 3 small paintings last month.\n",
     "He sold three times as many this month.\n",
@@ -124,13 +130,20 @@ assert_data = [
     "So he sold << 150+30= 180 >> 180 paintings last month.\n",
     "Therefore he sold << 180*3= 540 >> this month.\n",
     "The answer is $540.\n\n",
-    "Question: \n",
-    "Noah charges $30 for a large painting and $10 for a small painting.\n",
-    "Last month he sold five large paintings and three small paintings.\n",
-    "If he sold three times as much this month, how much is his sales for this month?Answer: Let's think step by step.\n",
-    "He sold 5 large paintings and 3 small paintings last month.\n",
-    "He sold three times as many this month.\n",
-    "5 large paintings x $30 = << 5*30= 150 >>",
+    "Question: ",
+    "\n"
+    "Noah charges $10 for a large painting and $5 for a small painting.\n"
+    "Last month he sold two large paintings and six small paintings.\n"
+    "If he sold half as much this month, how much is his sales for this month?\n"
+    "\n",
+    "Answer: Let's think step by step.\n",
+    "He sold 2 large paintings and 6 small paintings last month.\n"
+    "He sold half as many this month.\n"
+    "2 large paintings x $10 = <<",
+    " 2*10",
+    "= ",
+    "20",
+    " >>",
 ]
 
 
