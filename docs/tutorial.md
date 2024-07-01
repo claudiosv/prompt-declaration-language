@@ -3,28 +3,7 @@
 # PDL Language Tutorial
 
 The following sections give a step-by-step overview of PDL language features.
-All the examples in this tutorial can be found [here](../examples/tutorial/).
-
-- [PDL Language Tutorial](#pdl-language-tutorial)
-  - [Simple document](#simple-document)
-  - [Calling an LLM](#calling-an-llm)
-  - [Variable Definition and Use](#variable-definition-and-use)
-  - [Model Chaining](#model-chaining)
-  - [Function Definition](#function-definition)
-  - [Grouping Variable Definitions in Defs](#grouping-variable-definitions-in-defs)
-  - [Muting Block Output with Show\_result](#muting-block-output-with-show_result)
-  - [Input from File or Stdin](#input-from-file-or-stdin)
-  - [Calling code](#calling-code)
-  - [Calling APIs](#calling-apis)
-  - [Data Block](#data-block)
-  - [Include Block](#include-block)
-  - [Conditionals and Loops](#conditionals-and-loops)
-  - [For Loops](#for-loops)
-  - [Debugging PDL Programs](#debugging-pdl-programs)
-  - [Calling PDL Programmatically from Python](#calling-pdl-programmatically-from-python)
-  - [Visualization with the Live Document](#visualization-with-the-live-document)
-  - [PDL Code Assistant](#pdl-code-assistant)
-
+All the examples in this tutorial can be found in `examples/`.
 
 
 ##  Simple document

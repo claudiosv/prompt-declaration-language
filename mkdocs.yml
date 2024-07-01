@@ -1,0 +1,62 @@
+site_name: Prompt Description Language
+# repo_url: https://github.com/ibm/pdl
+
+copyright: Copyright &copy; 2024 IBM
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  features: # see https://squidfunk.github.io/mkdocs-material/setup/
+    - search.highlight
+    - search.suggest
+    - navigation.sections
+    - navigation.path
+    - navigation.footer
+    - navigation.indexes
+    - navigation.top
+    - toc.follow
+    - toc.integrate
+    - navigation.tabs
+  logo: assets/ai-governance--prompt.svg
+  palette:
+    - primary: custom
+nav:
+  - Home: README.md
+  - Tutorial: tutorial.md
+  - API Reference: api_reference.md
+  - Contribute: contrib.md
+
+# Define some IBM colors
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+- search
+- mkdocstrings: # see https://mkdocstrings.github.io/python/usage/
+    handlers:
+      python:
+        options:
+          allow_inspection: true
+          show_source: true
+          show_bases: true
+          show_symbol_type_toc: true
+          show_submodules: false
+          show_root_toc_entry: false
+          docstring_section_style: table
+          inherited_members: false
+          summary: true
+          docstring_style: null
+          show_if_no_docstring: true
+          show_labels: false
+          heading_level: 3
+
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3
+  - pymdownx.superfences: # Mermaid diagrams
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
