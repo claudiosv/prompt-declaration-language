@@ -70,7 +70,7 @@ hide:
   }
 </style>
 <!-- Main script -->
-<script src="/dist/bundle.js"></script>
+<script src="../dist/bundle.js"></script>
 <!-- Multi column layout -->
 <link rel="stylesheet" type="text/css" href="https://rawgit.com/vitmalina/w2ui/master/dist/w2ui.min.css">
 <!-- Main window -->
