@@ -1,10 +1,16 @@
 site_name: Prompt Description Language
 # repo_url: https://github.com/ibm/pdl
+site_url: https://pages.github.ibm.com/ml4code/pdl/
 
+docs_dir: docsource
+site_dir: docs
 copyright: Copyright &copy; 2024 IBM
 
 theme:
   name: material
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
   icon:
     repo: fontawesome/brands/github
   features: # see https://squidfunk.github.io/mkdocs-material/setup/
@@ -26,6 +32,7 @@ nav:
   - Tutorial: tutorial.md
   - API Reference: api_reference.md
   - Contribute: contrib.md
+  - Viewer: viewer.md
 
 # Define some IBM colors
 extra_css:
@@ -53,6 +60,7 @@ plugins:
 
 
 markdown_extensions:
+  - admonition
   - toc:
       toc_depth: 3
   - pymdownx.superfences: # Mermaid diagrams
