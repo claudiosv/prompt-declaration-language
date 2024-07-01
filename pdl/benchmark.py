@@ -1,9 +1,11 @@
 import argparse
 import json
+import random
 import sys
 from io import StringIO
 
 import yaml
+from tqdm.auto import tqdm
 
 from .pdl_ast import Program
 from .pdl_interpreter import InterpreterState, empty_scope, process_prog
@@ -20,19 +22,24 @@ class BaseProcessor:
     def get_truth_answer(self, qna) -> tuple[float, str]:
         return (0.0, "")
 
-    def extract_answer(self, document) -> float:
+    def extract_answer(self, document) -> float | str:
         return 0.0
 
     def process(self):
         with open("log.out", "w", encoding="utf-8") as log:
             with open(self.dataset, "r", encoding="utf-8") as json_file:
                 json_list = list(json_file)
+                random.shuffle(json_list)
+                json_list = json_list[:100]
                 with open(self.pdl_file, "r", encoding="utf-8") as pdl:
                     obj = yaml.safe_load(pdl)
                     data = Program.model_validate(obj)
                     matches = 0  # pylint: disable=invalid-name
                     exceptions = 0  # pylint: disable=invalid-name
-                    for index, json_str in enumerate(json_list):
+                    for index, json_str in tqdm(
+                        enumerate(json_list), total=len(json_list)
+                    ):
+                        answer = None
                         qna = json.loads(json_str)
                         question = self.get_question(qna)
                         truth, solution = self.get_truth_answer(qna)
@@ -41,10 +48,13 @@ class BaseProcessor:
                         try:
                             state = InterpreterState(yield_output=True)
                             scope = empty_scope
-                            scope["question"] = question
-                            _, document, _, _ = process_prog(state, scope, data)
+                            # scope |= question
+                            # print("Scope:", scope)
+                            _, document, _, trace = process_prog(state, scope, data)
+                            # print("RESULT", result)
+                            print("TRACE", trace)
                             answer = self.extract_answer(document)
-                            print(answer)
+                            # print("Answer:", answer)
 
                         except Exception as e:
                             print("EXCEPTION at: " + str(index))
@@ -62,12 +72,16 @@ class BaseProcessor:
                             )
 
                         if answer == truth or document.endswith(str(truth)):
-                            print("MATCH!")
+                            print(
+                                "MATCH!", answer == truth, document.endswith(str(truth))
+                            )
+                            # print("Truth: " + str(truth))
+                            # print("Question:", question)
                             matches += 1
                         else:
                             print("NO MATCH!")
                             print("Truth: " + str(truth))
-                            print("Question: " + question)
+                            print("Question:", question)
                             write_log(
                                 log,
                                 index,
@@ -93,13 +107,13 @@ def write_log(  # pylint: disable=too-many-arguments
 ):
     log.write("\n\n------------------------\n")
     log.write("Index: " + str(index + 1) + "\n")
-    log.write(question)
+    log.write(str(question))
     log.write("\nTruth: " + str(truth))
     log.write(solution)
     log.write("\nAnswer: " + str(answer) + "\n\n")
     log.write(document)
     if exc is not None:
-        log.write(exc)
+        log.write(str(exc))
     log.flush()
 
 
@@ -218,6 +232,116 @@ class GsmHardlProcessor(BaseProcessor):
         return extract_math_answer(document)
 
 
+class FEVERProcessor(BaseProcessor):
+    def __init__(self):
+        super().__init__("task.json", "examples/fever/fever.pdl")
+
+    def process(self):
+        with open("log.out", "w", encoding="utf-8") as log:
+            with open(self.dataset, "r", encoding="utf-8") as json_file:
+                examples = json.load(json_file)["examples"]
+                # random.shuffle(examples)
+                # examples = examples[:2]
+                with open(self.pdl_file, "r", encoding="utf-8") as pdl:
+                    obj = yaml.safe_load(pdl)
+                    data = Program.model_validate(obj)
+                    matches = 0  # pylint: disable=invalid-name
+                    exceptions = 0  # pylint: disable=invalid-name
+                    for index, qna in tqdm(enumerate(examples), total=len(examples)):
+                        answer = None
+                        question = self.get_question(qna)
+                        truth = self.get_truth_answer(qna)
+                        document = ""  # pylint: disable=invalid-name
+                        answer = 0.0  # pylint: disable=invalid-name
+                        try:
+                            state = InterpreterState(yield_output=True)
+                            scope = empty_scope
+                            scope["CLAIM"] = question
+                            _, document, _, _ = process_prog(state, scope, data)
+                            answer = self.extract_answer(document)
+                        except Exception as e:
+                            print("EXCEPTION at: " + str(index))
+                            print(e)
+                            exceptions += 1
+                            write_log(
+                                log,
+                                index,
+                                question,
+                                truth,
+                                answer,
+                                answer,
+                                document,
+                                e,
+                            )
+
+                        if answer == truth or document.endswith(str(truth)):
+                            print(
+                                "MATCH!",
+                                answer == truth,
+                                document.endswith(str(truth)),
+                                answer,
+                                truth,
+                            )
+                            # print("Truth: " + str(truth))
+                            # print("Question:", question)
+                            matches += 1
+                        else:
+                            print(
+                                "NO MATCH!",
+                                answer == truth,
+                                document.endswith(str(truth)),
+                                answer,
+                                truth,
+                            )
+                            # print("Truth: " + str(truth))
+                            # print("Question:", question)
+                            write_log(
+                                log,
+                                index,
+                                question,
+                                truth,
+                                answer,
+                                answer,
+                                document,
+                                None,
+                            )
+
+                        print(
+                            "Percentage passing: "
+                            + str(matches / (index + 1))
+                            + " ("
+                            + str(index + 1)
+                            + " completed)"
+                        )
+
+    def get_question(self, qna):
+        return qna["input"]
+
+    def get_truth_answer(self, qna):
+        choices = list(qna["target_scores"].items())
+        answer = [x[0] for x in choices if x[1] == max(x[1] for x in choices)][0]
+        return answer
+
+    def extract_answer(self, document: str):
+        #  "SUPPORTS", and otherwise with "REFUTES"
+        response = document.lower()
+        if "```" in response:
+            response = response.split("```")[1]
+        supports = "true" in response
+        refutes = "false" in response
+        # print("DOCUMENT:", response)
+        if (supports and refutes) or not (supports or refutes):
+            return ""
+
+        if supports:
+            return "true"
+
+        if refutes:
+            return "false"
+
+        return ""
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("")
     parser.add_argument(
@@ -241,3 +365,6 @@ if __name__ == "__main__":
 
     if args.bench == "gsm-hard-pal":
         GsmHardlPalProcessor().process()
+
+    if args.bench == "fever":
+        FEVERProcessor().process()

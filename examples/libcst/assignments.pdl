@@ -24,7 +24,7 @@ document:
     """
     visitor = AssignmentCollector()
     cst.parse_module(source).visit(visitor)
-    result = list(visitor.assignments)
+    result = visitor.assignments
 - model: ibm/granite-20b-code-instruct-v2
   def: EXPLANATION
   parameters:
@@ -45,7 +45,7 @@ document:
 - "The variable assignments ({{ VARIABLES|join(', ') }}) are explained as follows:\n{{ EXPLANATION}}\n"
 - model: ibm/granite-20b-code-instruct-v2
   def: better_names
-  # spec: {old_name: str, new_name: str}
+  # spec: {"(old_name)": int, new_name: str}
   parser: json
   input: 
     document:
@@ -58,16 +58,6 @@ document:
 
       You MUST respond with valid JSON.
       Answer:
-    # - for: 
-    #     question: "{{ data.questions }}"
-    #     answer: "{{ data.answers }}"
-    #   repeat:
-    #     - |
-    #       {{ question }}
-    #       {{ answer }}
-    # - > 
-    #   Question: Create a JSON object with fields 'name' and 'age' 
-    #   and set them appropriately. 
   parameters:
     decoding_method: greedy
     stop_sequences:

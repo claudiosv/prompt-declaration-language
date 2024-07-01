@@ -17,13 +17,15 @@ document:
     from northstar.models.java.models import JCallable
     from rich.pretty import pprint as print
 
-    # Initialize the Northstar object with the project directory, language, and analysis_backend.
-    ns = Northstar(language="java")
+    SAMPLE_DIR = "/Users/claudios/Projects/sample.daytrader8-1.2"
 
-    SAMPLE_DIR = "/Users/mvaziri/ai4code/sample-code"
+    # Initialize the Northstar object with the project directory, language, and analysis_backend.
+    ns = Northstar(project_dir=SAMPLE_DIR,
+                  language="java")
+
 
     # Get the java application view for the project.
-    java_analysis = ns.analysis(project_path=SAMPLE_DIR, eager=True)
+    java_analysis = ns.preprocessing
 
     # Get all the application view of the project.
     # Application view contails class level docstring, all imports, and all defined classes in a java file.

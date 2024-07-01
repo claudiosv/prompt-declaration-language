@@ -5,7 +5,7 @@ document:
   - |
     print("Enter/Paste your content. Ctrl-D to save it.")
     contents = []
-    while True:
+    while True: 
       try:
         line = input()
       except EOFError:

@@ -746,7 +746,7 @@ def step_call_code(
     try:
         match block.lan:
             case "python":
-                result = call_python(code_s)
+                result = call_python(code_s, state=state)
                 output = str(result)
             case "command":
                 result, output = call_command(code_s)
@@ -780,8 +780,9 @@ def step_call_code(
 __PDL_SESSION = types.SimpleNamespace()
 
 
-def call_python(code: str) -> Any:
-    my_namespace = types.SimpleNamespace(PDL_SESSION=__PDL_SESSION)
+def call_python(code: str, state: InterpreterState) -> Any:
+    my_namespace = types.SimpleNamespace(PDL_SESSION=__PDL_SESSION, PDL_IN=state.dict)
+    # TODO: inject InterpreterState into PDL_SESSION namespace
     exec(code, my_namespace.__dict__)
     result = my_namespace.result
     return result
