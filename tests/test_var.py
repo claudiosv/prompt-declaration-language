@@ -38,6 +38,41 @@ def test_var():
     assert document == "Hello, world!\nTell me about world?\n"
 
 
+var_data_show_result_false = {
+    "description": "Hello world with variable use",
+    "document": [
+        "Hello,",
+        {
+            "def": "NAME",
+            "show_result": False,
+            "document": [
+                {
+                    "model": "ibm/granite-20b-code-instruct-v2",
+                    "parameters": {
+                        "decoding_method": "greedy",
+                        "stop_sequences": ["!"],
+                        "include_stop_sequence": False,
+                    },
+                }
+            ],
+        },
+        {"get": "NAME"},
+        "!\n",
+        "Tell me about",
+        {"get": "NAME"},
+        "?\n",
+    ],
+}
+
+
+def test_var_show_result_false():
+    # Validates that `show_result: False` does indeed set the variable
+    state = InterpreterState()
+    data = Program.model_validate(var_data_show_result_false)
+    _, document, _, _ = process_prog(state, empty_scope, data)
+    assert document == "Hello, world!\nTell me about world?\n"
+
+
 code_var_data = {
     "description": "simple python",
     "document": [
