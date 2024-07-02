@@ -230,7 +230,7 @@ Notice that moving the `GEN` variable in `defs` would change the semantics of th
 
 ##  Muting Block Output with Show_result
 
-By default, when a PDL block is executed it produces a result that gets printed in the output document. It is possible to mute this feature by setting `show_result` to `false` for any block. This feature allows the computation of intermediate values that are not necessarily output in the document.
+By default, when a PDL block is executed it produces a result that gets printed in the output document. It is possible to mute this feature by setting `show_result` to `false` for any block. This feature allows the computation of intermediate values that are not necessarily output in the document. The value of the variable specified in `def` is still set to the result of the block.
 
 Consider the same example as above, but with `show_result` set to `false` ([file](../examples/tutorial/muting_block_output.yaml)):
 
@@ -273,7 +273,50 @@ Nos vemos, mundo!
 The french sentence was: Bonjour, monde!
 ```
 
+An important detail to be mindful of is where `show_result` is set. Here is an example of mistake that is easy to make:
+```
+description: Test
+document:
+  - def: NAME
+    document:
+      - model: "ibm/granite-20b-code-instruct-v2"
+        show_result: false # <-- MISTAKE:
+        # `show_result` is specified on the document,
+        # resulting in an _empty_ document and thus
+        # an empty `NAME`
+        platform: bam
+        input: Hello,
+        parameters:
+          decoding_method: "greedy"
+          stop_sequences:
+            - "!"
+          include_stop_sequence: false
+  - "The variable will be empty: `"
+  - get: NAME
+  - "`!\n"
+  - def: TWO
+    show_result: false # <-- CORRECT:
+    # `show_result` is set at the root of the block,
+    # which behaves as expected.
+    document:
+      - model: "ibm/granite-20b-code-instruct-v2"
+        platform: bam
+        input: Hello,
+        parameters:
+          decoding_method: "greedy"
+          stop_sequences:
+            - "!"
+          include_stop_sequence: false
+  - "But not this one: `"
+  - get: TWO
+  - "`!\n"
+```
 
+The output is:
+```
+The variable will be empty: ``!
+But not this one: ` world`!
+```
 
 ##  Input from File or Stdin
 
@@ -347,7 +390,7 @@ Bob lives at the following address:
 
 ##  Calling code
 
-The following script shows how to execute python code ([file](../examples/tutorial/calling_code.yaml)). Currently, the python code is executed locally. In the future, we plan to use a serverless cloud engine to execute snippets of code. So in principle, PDL is agnostic of any specific programming language. The result of the code must be assigned to the variable `result` internally to be propagated to the result of the block.
+The following script shows how to execute python code ([file](../examples/tutorial/calling_code.yaml)). Currently, the python code is executed locally. In the future, we plan to use a serverless cloud engine to execute snippets of code. So in principle, PDL is agnostic of any specific programming language. Variables defined in PDL are copied into the global scope of the Python code, as such, mutating variables in Python has no effect on the variables in the document. The result of the code must be assigned to the variable `result` internally to be propagated to the result of the block.
 
 ```yaml
 description: Hello world showing call to python code
