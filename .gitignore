@@ -118,7 +118,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-# /site # TravisCI for now isn't set up to render the docs
+/site
 
 # mypy
 .mypy_cache/
@@ -149,6 +149,3 @@ pdl-live/package-lock.json
 # PDL trace
 *_result.json
 *_result.yaml
-
-# MacOS
-.DS_Store
