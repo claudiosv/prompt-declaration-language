@@ -21,6 +21,7 @@ from ..pdl_ast import (
     IfBlock,
     IncludeBlock,
     ModelBlock,
+    OpenAIModelBlock,
     ReadBlock,
     RepeatBlock,
     RepeatUntilBlock,
@@ -282,6 +283,12 @@ def compile_block(
                         stop_sequences = block.params.get(
                             WatsonxGenParams.STOP_SEQUENCES, []
                         )
+                    include_stop_sequence = False
+                case OpenAIModelBlock():
+                    if block.params is None:
+                        stop_sequences = []
+                    else:
+                        stop_sequences = block.params.get("stop") or []
                     include_stop_sequence = False
                 case _:
                     assert False

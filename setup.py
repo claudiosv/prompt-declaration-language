@@ -24,6 +24,7 @@ extras_require = {
     "examples": examples,
     "docs": docs,
     "all": dev + examples + docs,
+    "openai": ["openai"],
 }
 setup(
     name="pdl",
