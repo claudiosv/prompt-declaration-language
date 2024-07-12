@@ -38,6 +38,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -93,6 +96,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -226,6 +232,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -281,6 +290,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -367,6 +379,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -422,6 +437,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -516,6 +534,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -571,6 +592,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -704,6 +728,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -759,6 +786,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -841,6 +871,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -896,6 +929,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -1050,6 +1086,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -1105,6 +1144,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -1238,6 +1280,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -1293,6 +1338,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -1380,6 +1428,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -1435,6 +1486,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -1493,6 +1547,25 @@
       "title": "CallBlock",
       "type": "object"
     },
+    "ChatMessage": {
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "default": "user",
+          "title": "Role",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "required": [
+        "content"
+      ],
+      "title": "ChatMessage",
+      "type": "object"
+    },
     "CodeBlock": {
       "additionalProperties": false,
       "properties": {
@@ -1529,6 +1602,9 @@
               },
               {
                 "$ref": "#/$defs/BamModelBlock"
+              },
+              {
+                "$ref": "#/$defs/OpenAIModelBlock"
               },
               {
                 "$ref": "#/$defs/CodeBlock"
@@ -1586,6 +1662,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -1719,6 +1798,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -1774,6 +1856,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -1860,6 +1945,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -1915,6 +2003,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -2008,6 +2099,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -2063,6 +2157,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -2196,6 +2293,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -2251,6 +2351,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -2367,6 +2470,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -2422,6 +2528,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -2555,6 +2664,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -2610,6 +2722,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -2688,6 +2803,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -2743,6 +2861,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -2835,6 +2956,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -2890,6 +3014,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -3023,6 +3150,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -3078,6 +3208,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -3180,6 +3313,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -3235,6 +3371,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -3368,6 +3507,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -3423,6 +3565,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -3505,6 +3650,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -3560,6 +3708,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -3653,6 +3804,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -3708,6 +3862,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -3841,6 +3998,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -3896,6 +4056,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -3978,6 +4141,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -4033,6 +4199,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -4101,6 +4270,9 @@
                     "$ref": "#/$defs/BamModelBlock"
                   },
                   {
+                    "$ref": "#/$defs/OpenAIModelBlock"
+                  },
+                  {
                     "$ref": "#/$defs/CodeBlock"
                   },
                   {
@@ -4156,6 +4328,9 @@
                         },
                         {
                           "$ref": "#/$defs/BamModelBlock"
+                        },
+                        {
+                          "$ref": "#/$defs/OpenAIModelBlock"
                         },
                         {
                           "$ref": "#/$defs/CodeBlock"
@@ -4257,6 +4432,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -4312,6 +4490,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -4445,6 +4626,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -4500,6 +4684,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -4589,6 +4776,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -4644,6 +4834,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -4749,6 +4942,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -4804,6 +5000,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -4937,6 +5136,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -4992,6 +5194,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -5101,6 +5306,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -5156,6 +5364,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -5289,6 +5500,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -5344,6 +5558,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -5425,6 +5642,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -5480,6 +5700,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -5545,6 +5768,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -5600,6 +5826,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -5709,6 +5938,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -5764,6 +5996,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -5897,6 +6132,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -5952,6 +6190,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -6032,6 +6273,9 @@
             },
             {
               "$ref": "#/$defs/BamModelBlock"
+            },
+            {
+              "$ref": "#/$defs/OpenAIModelBlock"
             },
             {
               "$ref": "#/$defs/CodeBlock"
@@ -6420,6 +6664,529 @@
       "title": "ModerationSocialBiasOutput",
       "type": "object"
     },
+    "OpenAIModelBlock": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "spec": {
+          "default": null,
+          "title": "Spec"
+        },
+        "defs": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/FunctionBlock"
+              },
+              {
+                "$ref": "#/$defs/CallBlock"
+              },
+              {
+                "$ref": "#/$defs/WatsonxModelBlock"
+              },
+              {
+                "$ref": "#/$defs/BamModelBlock"
+              },
+              {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
+                "$ref": "#/$defs/CodeBlock"
+              },
+              {
+                "$ref": "#/$defs/ApiBlock"
+              },
+              {
+                "$ref": "#/$defs/GetBlock"
+              },
+              {
+                "$ref": "#/$defs/DataBlock"
+              },
+              {
+                "$ref": "#/$defs/IfBlock"
+              },
+              {
+                "$ref": "#/$defs/RepeatBlock"
+              },
+              {
+                "$ref": "#/$defs/RepeatUntilBlock"
+              },
+              {
+                "$ref": "#/$defs/ForBlock"
+              },
+              {
+                "$ref": "#/$defs/DocumentBlock"
+              },
+              {
+                "$ref": "#/$defs/ReadBlock"
+              },
+              {
+                "$ref": "#/$defs/IncludeBlock"
+              },
+              {
+                "$ref": "#/$defs/ErrorBlock"
+              },
+              {
+                "$ref": "#/$defs/EmptyBlock"
+              },
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "$ref": "#/$defs/FunctionBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/CallBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/WatsonxModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/CodeBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/ApiBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/GetBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/DataBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/IfBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/RepeatBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/RepeatUntilBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/ForBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/DocumentBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/ReadBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/IncludeBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/ErrorBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/EmptyBlock"
+                    }
+                  ]
+                },
+                "type": "array"
+              }
+            ]
+          },
+          "default": {},
+          "title": "Defs",
+          "type": "object"
+        },
+        "def": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Def"
+        },
+        "show_result": {
+          "default": true,
+          "title": "Show Result",
+          "type": "boolean"
+        },
+        "result": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Result"
+        },
+        "parser": {
+          "anyOf": [
+            {
+              "enum": [
+                "json",
+                "yaml"
+              ],
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/PdlParser"
+            },
+            {
+              "$ref": "#/$defs/RegexParser"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parser"
+        },
+        "location": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LocationType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "has_error": {
+          "default": false,
+          "title": "Has Error",
+          "type": "boolean"
+        },
+        "fallback": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/FunctionBlock"
+            },
+            {
+              "$ref": "#/$defs/CallBlock"
+            },
+            {
+              "$ref": "#/$defs/WatsonxModelBlock"
+            },
+            {
+              "$ref": "#/$defs/BamModelBlock"
+            },
+            {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
+              "$ref": "#/$defs/CodeBlock"
+            },
+            {
+              "$ref": "#/$defs/ApiBlock"
+            },
+            {
+              "$ref": "#/$defs/GetBlock"
+            },
+            {
+              "$ref": "#/$defs/DataBlock"
+            },
+            {
+              "$ref": "#/$defs/IfBlock"
+            },
+            {
+              "$ref": "#/$defs/RepeatBlock"
+            },
+            {
+              "$ref": "#/$defs/RepeatUntilBlock"
+            },
+            {
+              "$ref": "#/$defs/ForBlock"
+            },
+            {
+              "$ref": "#/$defs/DocumentBlock"
+            },
+            {
+              "$ref": "#/$defs/ReadBlock"
+            },
+            {
+              "$ref": "#/$defs/IncludeBlock"
+            },
+            {
+              "$ref": "#/$defs/ErrorBlock"
+            },
+            {
+              "$ref": "#/$defs/EmptyBlock"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/FunctionBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/CallBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/WatsonxModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/CodeBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ApiBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/GetBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/DataBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/IfBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/RepeatBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/RepeatUntilBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ForBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/DocumentBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ReadBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/IncludeBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ErrorBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/EmptyBlock"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fallback"
+        },
+        "kind": {
+          "const": "model",
+          "default": "model",
+          "enum": [
+            "model"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "input": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/FunctionBlock"
+            },
+            {
+              "$ref": "#/$defs/CallBlock"
+            },
+            {
+              "$ref": "#/$defs/WatsonxModelBlock"
+            },
+            {
+              "$ref": "#/$defs/BamModelBlock"
+            },
+            {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
+              "$ref": "#/$defs/CodeBlock"
+            },
+            {
+              "$ref": "#/$defs/ApiBlock"
+            },
+            {
+              "$ref": "#/$defs/GetBlock"
+            },
+            {
+              "$ref": "#/$defs/DataBlock"
+            },
+            {
+              "$ref": "#/$defs/IfBlock"
+            },
+            {
+              "$ref": "#/$defs/RepeatBlock"
+            },
+            {
+              "$ref": "#/$defs/RepeatUntilBlock"
+            },
+            {
+              "$ref": "#/$defs/ForBlock"
+            },
+            {
+              "$ref": "#/$defs/DocumentBlock"
+            },
+            {
+              "$ref": "#/$defs/ReadBlock"
+            },
+            {
+              "$ref": "#/$defs/IncludeBlock"
+            },
+            {
+              "$ref": "#/$defs/ErrorBlock"
+            },
+            {
+              "$ref": "#/$defs/EmptyBlock"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/$defs/FunctionBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/CallBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/WatsonxModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/CodeBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ApiBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/GetBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/DataBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/IfBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/RepeatBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/RepeatUntilBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ForBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/DocumentBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ReadBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/IncludeBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/ErrorBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/EmptyBlock"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input"
+        },
+        "platform": {
+          "const": "openai",
+          "default": "openai",
+          "enum": [
+            "openai"
+          ],
+          "title": "Platform",
+          "type": "string"
+        },
+        "params": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Params"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/$defs/ChatMessage"
+          },
+          "title": "Messages",
+          "type": "array"
+        }
+      },
+      "required": [
+        "model",
+        "messages"
+      ],
+      "title": "OpenAIModelBlock",
+      "type": "object"
+    },
     "PDLTextGenerationParameters": {
       "additionalProperties": false,
       "properties": {
@@ -6663,6 +7430,9 @@
           "$ref": "#/$defs/BamModelBlock"
         },
         {
+          "$ref": "#/$defs/OpenAIModelBlock"
+        },
+        {
           "$ref": "#/$defs/CodeBlock"
         },
         {
@@ -6722,6 +7492,9 @@
           "$ref": "#/$defs/BamModelBlock"
         },
         {
+          "$ref": "#/$defs/OpenAIModelBlock"
+        },
+        {
           "$ref": "#/$defs/CodeBlock"
         },
         {
@@ -6777,6 +7550,9 @@
               },
               {
                 "$ref": "#/$defs/BamModelBlock"
+              },
+              {
+                "$ref": "#/$defs/OpenAIModelBlock"
               },
               {
                 "$ref": "#/$defs/CodeBlock"
@@ -6869,6 +7645,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -6924,6 +7703,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -6994,6 +7776,9 @@
         },
         {
           "$ref": "#/$defs/BamModelBlock"
+        },
+        {
+          "$ref": "#/$defs/OpenAIModelBlock"
         },
         {
           "$ref": "#/$defs/CodeBlock"
@@ -7100,6 +7885,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -7155,6 +7943,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -7288,6 +8079,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -7343,6 +8137,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -7526,6 +8323,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -7581,6 +8381,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -7714,6 +8517,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -7769,6 +8575,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -7847,6 +8656,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -7902,6 +8714,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -7974,6 +8789,9 @@
                     "$ref": "#/$defs/BamModelBlock"
                   },
                   {
+                    "$ref": "#/$defs/OpenAIModelBlock"
+                  },
+                  {
                     "$ref": "#/$defs/CodeBlock"
                   },
                   {
@@ -8029,6 +8847,9 @@
                         },
                         {
                           "$ref": "#/$defs/BamModelBlock"
+                        },
+                        {
+                          "$ref": "#/$defs/OpenAIModelBlock"
                         },
                         {
                           "$ref": "#/$defs/CodeBlock"
@@ -8130,6 +8951,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -8185,6 +9009,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -8318,6 +9145,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -8373,6 +9203,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -8451,6 +9284,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -8506,6 +9342,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -8577,6 +9416,9 @@
                     "$ref": "#/$defs/BamModelBlock"
                   },
                   {
+                    "$ref": "#/$defs/OpenAIModelBlock"
+                  },
+                  {
                     "$ref": "#/$defs/CodeBlock"
                   },
                   {
@@ -8632,6 +9474,9 @@
                         },
                         {
                           "$ref": "#/$defs/BamModelBlock"
+                        },
+                        {
+                          "$ref": "#/$defs/OpenAIModelBlock"
                         },
                         {
                           "$ref": "#/$defs/CodeBlock"
@@ -8826,6 +9671,9 @@
                 "$ref": "#/$defs/BamModelBlock"
               },
               {
+                "$ref": "#/$defs/OpenAIModelBlock"
+              },
+              {
                 "$ref": "#/$defs/CodeBlock"
               },
               {
@@ -8881,6 +9729,9 @@
                     },
                     {
                       "$ref": "#/$defs/BamModelBlock"
+                    },
+                    {
+                      "$ref": "#/$defs/OpenAIModelBlock"
                     },
                     {
                       "$ref": "#/$defs/CodeBlock"
@@ -9014,6 +9865,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -9069,6 +9923,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
@@ -9151,6 +10008,9 @@
               "$ref": "#/$defs/BamModelBlock"
             },
             {
+              "$ref": "#/$defs/OpenAIModelBlock"
+            },
+            {
               "$ref": "#/$defs/CodeBlock"
             },
             {
@@ -9206,6 +10066,9 @@
                   },
                   {
                     "$ref": "#/$defs/BamModelBlock"
+                  },
+                  {
+                    "$ref": "#/$defs/OpenAIModelBlock"
                   },
                   {
                     "$ref": "#/$defs/CodeBlock"
