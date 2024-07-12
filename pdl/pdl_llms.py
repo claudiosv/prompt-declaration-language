@@ -10,7 +10,7 @@ from ibm_watsonx_ai import Credentials as WatsonxCredentials
 from ibm_watsonx_ai.foundation_models import ModelInference as WatsonxModelInference
 from openai import OpenAI
 
-from .pdl_ast import PDLTextGenerationParameters, set_default_model_params
+from .pdl_ast import ChatMessage, PDLTextGenerationParameters, set_default_model_params
 
 # Load environment variables
 load_dotenv()
@@ -201,7 +201,7 @@ class OpenAIModel:
     @staticmethod
     def generate_text(  # pylint: disable=too-many-arguments
         model_id: str,
-        model_input: Optional[str],
+        model_input: list[ChatMessage],
         parameters: Optional[dict],
     ) -> str:
         client = OpenAIModel.get_model()
@@ -209,10 +209,7 @@ class OpenAIModel:
         text = ""
         response = client.chat.completions.create(
             model=model_id,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": model_input},
-            ],
+            messages=model_input,  # pyright: ignore
             **parameters,
         )
 
@@ -225,20 +222,15 @@ class OpenAIModel:
     @staticmethod
     def generate_text_stream(  # pylint: disable=too-many-arguments
         model_id: str,
-        model_input: Optional[str],
+        model_input: Optional[list[ChatMessage]],
         parameters: Optional[dict],
     ) -> Generator[str, Any, None]:
         client = OpenAIModel.get_model()
         parameters = parameters or {}
+
         for chunk in client.chat.completions.create(
             model=model_id,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a helpful assistant based off IBM Granite.",
-                },
-                {"role": "user", "content": model_input},
-            ],
+            messages=model_input,  # pyright: ignore
             stream=True,
             **parameters,
         ):

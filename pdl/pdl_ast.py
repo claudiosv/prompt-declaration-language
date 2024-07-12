@@ -138,10 +138,17 @@ class WatsonxModelBlock(ModelBlock):
     guardrails_hap_params: Optional[dict] = None
 
 
+class ChatMessage(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: str = Field(default="user")
+    content: str
+
+
 class OpenAIModelBlock(ModelBlock):
     model_config = ConfigDict(extra="forbid")
     platform: Literal[ModelPlatform.OPENAI] = ModelPlatform.OPENAI
     params: Optional[dict] = None
+    messages: list[ChatMessage]
 
 
 class CodeBlock(Block):

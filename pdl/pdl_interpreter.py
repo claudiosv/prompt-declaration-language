@@ -692,7 +692,7 @@ def generate_client_response_streaming(
         case OpenAIModelBlock():
             text_stream = OpenAIModel.generate_text_stream(
                 model_id=model,
-                model_input=model_input,
+                model_input=block.messages,
                 parameters=block.params,
             )
         case _:
@@ -733,7 +733,7 @@ def generate_client_response_single(
         case OpenAIModelBlock():
             text = OpenAIModel.generate_text(
                 model_id=model,
-                model_input=model_input,
+                model_input=block.messages,
                 parameters=block.params,
             )
     if state.yield_output:
