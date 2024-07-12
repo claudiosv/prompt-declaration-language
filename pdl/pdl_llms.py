@@ -8,7 +8,11 @@ from genai.schema import ModerationParameters as BamModerationParameters
 from genai.schema import PromptTemplateData as BamPromptTemplateData
 from ibm_watsonx_ai import Credentials as WatsonxCredentials
 from ibm_watsonx_ai.foundation_models import ModelInference as WatsonxModelInference
-from openai import OpenAI
+
+try:
+    from openai import OpenAI
+except ImportError:
+    OpenAI = None
 
 from .pdl_ast import ChatMessage, PDLTextGenerationParameters, set_default_model_params
 
@@ -186,13 +190,13 @@ class WatsonxModel:
 
 
 class OpenAIModel:
-    oai_client: Optional[OpenAI] = None
+    oai_client: Optional[OpenAI] = None  # type: ignore
 
     @staticmethod
-    def get_model() -> OpenAI:
+    def get_model() -> OpenAI:  # type: ignore
         if OpenAIModel.oai_client is not None:
             return OpenAIModel.oai_client
-        OpenAIModel.oai_client = OpenAI(
+        OpenAIModel.oai_client = OpenAI(  # pyright: ignore
             base_url=os.environ["OPENAI_BASE_URL"],
             api_key=os.environ["OPENAI_API_KEY"],
         )
