@@ -43,6 +43,10 @@ In order to run the examples that use foundation models hosted on [watsonx](http
 - `WATSONX_KEY`, the API key (see information on [key creation](https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui#create_user_key))
 - `WATSONX_PROJECT_ID`, the project hosting the resources (see information about [project creation](https://www.ibm.com/docs/en/watsonx/saas?topic=projects-creating-project) and [finding project ID](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-project-id.html?context=wx)).
 
+To use an OpenAI compatible API, both the following environment variables must be set:
+- `OPENAI_BASE_URL`, the API base url e.g., if using `llama.cpp` locally: `http://localhost:8080/v1/`, or for OpenAI proper: `https://api.openai.com/v1/`
+- `OPENAI_API_KEY`, your API key if required. `llama.cpp` does not require a key usually. If no key is required, specify a value such as `sk-no-key`
+
 Internal IBM users can use models hosted on [BAM](https://bam.res.ibm.com/). You need to set up 2 environment variables:
 - `GENAI_API` set to `https://bam-api.res.ibm.com/`
 - `GENAI_KEY` set to your BAM API key. To obtain your key, go to the [BAM](https://bam.res.ibm.com/) main page. On the right and under the "Documentation" section, you will see a button to copy your API key.
