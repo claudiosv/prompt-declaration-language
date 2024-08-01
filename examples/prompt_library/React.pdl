@@ -119,6 +119,7 @@ defs:
     function:
       subject: str
     return:
+      - "[Document]\n"
       - lan: python
         code: |
           import wikipedia
@@ -126,6 +127,7 @@ defs:
             result = wikipedia.summary(subject)
           except wikipedia.WikipediaException as e:
             result = str(e)
+      - "[End]\n"
 
   get_current_weather:
     function:
@@ -250,7 +252,7 @@ defs:
           call: react_block
           args:
             trajectory: "{{ traj }}"
-      - "Question: {{ question }}\nTho: "
+      - "Question: {{ question }}\nTho:"
       - repeat:
           - repeat:
               - def: THOUGHT
@@ -260,9 +262,6 @@ defs:
                   temperature: 0.7
                   stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                   include_stop_sequence: true
-                constraints:
-                  - words_len: ">2"
-                    not_contains: Tho
             until: "{{ THOUGHT.endswith('Act:') }}"
           - def: action_raw
             model: "{{ model }}"
