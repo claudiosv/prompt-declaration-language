@@ -121,13 +121,61 @@ document:
     with Wolfram Alpha. #E1 = WolframAlpha[Solve x + (2x - 10) + ((2x - 10) - 8) = 157]
     Plan: Find out the number of hours Thomas worked. #E2 = LLM[What is x, given #E1]
     Plan: Calculate the number of hours Rebecca worked. #E3 = Calculator[(2 * #E2 - 10) - 8]
+- def: output
+  data: {}
 - def: plans
+  show_result: true
   for:
     plan: "{{ parsed }}"
-  repeat: 
-    data:
-      plan: "{{ plan[0] }}"
-      id: "{{ plan[1] }}"
-      action: "{{ plan[2] }}"
-      subject: "{{ plan[3] }}"
-- "{{ plans|list }}"
+  repeat:
+    - "{{ output }}"
+    - def: PLAN
+      show_result: false
+      document: "{{ plan[0] }}"
+    - def: ID
+      show_result: false
+      document: "{{ plan[1] }}"
+    - def: ACTION
+      show_result: false
+      document: "{{ plan[2] }}"
+    - def: SUBJECT
+      show_result: false
+      document: "{{ plan[3] }}"
+        # for:
+        #   test: "{{ output }}"
+        # repeat: "{{ plan[3]|replace(test, test) }}"
+        
+    - def: output
+      show_result: false
+      lan: python
+      code: |
+        output[ID] = SUBJECT
+        result = output
+    # "{{ output + [{'key': ID, 'value': SUBJECT}] }}"
+    # - def: OBSERVATION
+    #   show_result: false
+    #   document:
+    #     - lan: python
+    #       code: |
+    #         print("---", parsed)
+    #         print("---plan: ", plan)
+    #         result = ""
+    # - def: plan
+    #   data:
+    #     plan: "{{ plan[0] }}"
+    #     id: "{{ plan[1] }}"
+    #     action: "{{ plan[2] }}"
+    #     subject: "{{ plan[3] }}"
+    #     observation: "hi"
+    # - "{{ parsed|list }}"
+- "{{ output }}"
+- for:
+    test: "{{ output|list }}"
+  repeat: "{{ test }}"
+# - "{{ plans|list }}"
+# - lan: python
+#   code: |
+#     for plan in plans:
+#       plan["observation"] = "example"
+#     id2val = { x['id']:x for x in plans}
+#     result = id2val #[ x['id'] for x in plans ]

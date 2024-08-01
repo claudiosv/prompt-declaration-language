@@ -10,9 +10,6 @@ document:
     args:
       tools: "{{ default_tools }}"
       tool_names: "{{ available_tools }}"
-  - call: list_tools
-    args:
-      tools: "{{ filtered_tools }}"
   - call: react
     args:
      question: "When did the Battle of White Plains take place?"

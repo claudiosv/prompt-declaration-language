@@ -1,4 +1,5 @@
 description: ReAct pattern from Yao et al., [ICLR 2023](https://openreview.net/forum?id=WE_vluYUL-X)
+# See alternative implementation here: https://smith.langchain.com/hub/hwchase17/react-chat
 defs:
   langchain: |
     Answer the following questions as best you can. You have access to the following tools:
@@ -72,9 +73,6 @@ defs:
 
     {agent_scratchpad}
 
-  tool_use_prompt: |
-    You can use the tools by outputing the tool name followed by its arguments in square brackets, delimited by commas. You should begin your tool invocation with 'Act:'. Example: 'Action: tool_name[argument_1]' You can only invoke one tool at a time.
-    
   # By abstracting the pattern, the naming and formatting of the individual steps can
   # be more easily changed.
   # Example usage:
@@ -117,6 +115,27 @@ defs:
             then: "{{ type }}: {{ content }}"
       - "\n"
 
+  Search:
+    function:
+      subject: str
+    return:
+      - lan: python
+        code: |
+          import wikipedia
+          try:
+            result = wikipedia.summary(subject)
+          except wikipedia.WikipediaException as e:
+            result = str(e)
+
+  get_current_weather:
+    function:
+      subject: str
+    return:
+      - api: https
+        url: https://api.weatherapi.com/v1/current.json?key=cf601276764642cb96224947230712&q=
+        input: '{{ subject }}'
+        show_result: false
+
   default_tools:
     data:
       - name: get_current_weather
@@ -144,11 +163,15 @@ defs:
             - observation: "The Colorado orogeny was an episode of mountain building (an orogeny) ..."
             - thought: "High Plains rise in elevation from around 1,800 to 7,000 ft, so the answer is 1,800 to 7,000 ft."
             - action: "Finish[1,800 to 7,000 ft]"
-          - - question: "When was the Battle of White Plains fought?"
-            - thought: "I need to search for the Battle of White Plains"
-            - action: "Search[Battle of White Plains]"
-            - observation: "The Battle of Whiteplains was fought in 1776"
-            - action: "Finish[1776]"
+          - - question: "What profession does Nicholas Ray and Elia Kazan have in common?"
+            - thought: "I need to search Nicholas Ray and Elia Kazan, find their professions, then find the profession they have in common."
+            - action: "Search[Nicholas Ray]"
+            - observation: "Nicholas Ray (born Raymond Nicholas Kienzle Jr., August 7, 1911 - June 16, 1979) was an American film director, screenwriter, and actor best known for the 1955 film Rebel Without a Cause."
+            - thought: "Professions of Nicholas Ray are director, screenwriter, and actor. I need to search Elia Kazan next and find his professions."
+            - action: "Search[Elia Kazan]"
+            - observation: "Elia Kazan was an American film and theatre director, producer, screenwriter and actor."
+            - thought: "Professions of Elia Kazan are director, producer, screenwriter, and actor. So profession Nicholas Ray and Elia Kazan have in common is director, screenwriter, and actor."
+            - action: "Finish[director, screenwriter, actor]"
 
   filter_tools_by_name:
     function:
@@ -156,18 +179,6 @@ defs:
       tool_names: {list: str}
     return:
       data: "{{ tools|selectattr('name', 'in', tool_names)|list }}"
-
-  Search:
-    function:
-      subject: str
-    return:
-      - lan: python
-        code: |
-          import wikipedia
-          try:
-            result = wikipedia.summary(subject)
-          except wikipedia.WikipediaException as e:
-            result = str(error)
 
   demonstrate_tools:
     function:
@@ -189,69 +200,64 @@ defs:
     return:
       - def: signatures
         show_result: false
-        array:
-          for:
-            tool: "{{ tools }}"
-          repeat: "{{ tool.name }}[<{{ tool.parameters|join('>, <', attribute='name') }}>]"
+        for:
+          tool: "{{ tools }}"
+        repeat: "{{ tool.name }}[<{{ tool.parameters|join('>, <', attribute='name') }}>]"
       - def: typed_signatures
         show_result: false
-        array:
-          for:
-            FOO: "{{ tools }}"
-          repeat:
-            document:
-              - def: params
-                show_result: false
-                for:
-                  param: "{{ FOO.parameters }}"
-                repeat: "{{ param.name}}: {{ param.type }}"
-              - "{{ FOO.name }}{{ params }}"
+        for:
+          tool: "{{ tools }}"
+        repeat:
+          - def: params
+            show_result: false
+            for:
+             param: "{{ tool.parameters }}"
+            repeat: "{{ param.name}}: {{ param.type }}"
+          - "{{ tool.name }}({{ params|join(', ') }})"
       - data:
-          # names: "{{ tools|map(attribute='name')|list }}"
+          names: "{{ tools|map(attribute='name')|list }}"
           signatures: "{{ signatures }}"
           typed_signatures: "{{ typed_signatures }}"
-          # descriptions: "{{ tools|map(attribute='description')|list }}"
+          descriptions: "{{ tools|map(attribute='description')|list }}"
 
   react:
     function:
       question: str
       model: str
       tools: { list: obj }
+      trajectories: { list: list }
     return:
       - def: TOOL_INFO
         call: list_tools
         show_result: false
         args:
           tools: "{{ tools }}"
+      - "Available tools:\n"
       - for:
           name: "{{ TOOL_INFO.names }}"
           sig: "{{ TOOL_INFO.signatures }}"
           desc: "{{ TOOL_INFO.descriptions }}"
         repeat: |
           {{ name }}: {{ desc }}
+      - "Finish: Respond with the Answer\n"
       - "\n"
       - call: demonstrate_tools
         args:
           tools: "{{ tools }}"
-      - call: react_block
-        args:
-          trajectory:
-            - question: "What profession does Nicholas Ray and Elia Kazan have in common?"
-            - thought: "I need to search Nicholas Ray and Elia Kazan, find their professions, then find the profession they have in common."
-            - action: "Search[Nicholas Ray]"
-            - observation: "Nicholas Ray (born Raymond Nicholas Kienzle Jr., August 7, 1911 - June 16, 1979) was an American film director, screenwriter, and actor best known for the 1955 film Rebel Without a Cause."
-            - thought: "Professions of Nicholas Ray are director, screenwriter, and actor. I need to search Elia Kazan next and find his professions."
-            - action: "Search[Elia Kazan]"
-            - observation: "Elia Kazan was an American film and theatre director, producer, screenwriter and actor."
-            - thought: "Professions of Elia Kazan are director, producer, screenwriter, and actor. So profession Nicholas Ray and Elia Kazan have in common is director, screenwriter, and actor."
-            - action: "Finish[director, screenwriter, actor]"
-      - "Question: {{ question }}"
+      - for:
+          traj: "{{ trajectories }}"
+        repeat:
+          call: react_block
+          args:
+            trajectory: "{{ traj }}"
+      - "Question: {{ question }}\nTho: "
       - repeat:
           - repeat:
               - def: THOUGHT
                 model: "{{ model }}"
                 parameters:
                   decoding_method: sample
+                  temperature: 0.7
                   stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                   include_stop_sequence: true
                 constraints:
@@ -262,6 +268,7 @@ defs:
             model: "{{ model }}"
             parameters:
               decoding_method: sample
+              temperature: 0.7
               stop_sequences: ["[", "\n"]
               include_stop_sequence: false
           - def: ACTION
@@ -272,6 +279,7 @@ defs:
             model: "{{ model }}"
             parameters:
               decoding_method: sample
+              temperature: 0.7
               stop_sequences: ["]", "\n"]
               include_stop_sequence: false
           - "]"
@@ -286,24 +294,36 @@ defs:
                   - model: "{{ model }}"
                     parameters:
                       decoding_method: sample
+                      repetition_penalty: 1.1
+                      temperature: 0.7
                       stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                       include_stop_sequence: false
                 else: "Invalid action. Valid actions are {{ TOOL_INFO.signatures|join(', ') }} and Finish[<answer>]."
         until: "{{ ACTION == 'Finish' }}"
+      - "\n\nJSON Output: "
       - data:
           answer: "{{ SUBJECT }}"
-document:
-  # - def: filt_tools
-  #   call: filter_tools_by_name
-  #   show_result: false
-  #   args:
-  #     tools: "{{ default_tools }}"
-  #     tool_names: ["Search"]
-  - call: list_tools
-    args:
-      tools: "{{ default_tools }}"
-  # - call: react
-  #   args:
-  #     question: "When did the Battle of White Plains take place?"
-  #     model: "meta-llama/llama-3-70b-instruct"
-  #     tools: "{{ filt_tools }}"
+
+
+
+# document:
+#   - include: examples/prompt_library/tools.pdl
+#   - "{{ default_model }}"
+#   - def: filt_tools
+#     call: filter_tools_by_name
+#     show_result: false
+#     args:
+#       tools: "{{ default_tools }}"
+#       tool_names: ["Search"]
+    
+#   - call: react
+#     args:
+#       question: "When did the Battle of White Plains take place?"
+#       model: "meta-llama/llama-3-70b-instruct"
+#       tools: "{{ filt_tools }}"
+# - "You have access to the following tools:\n"
+# - call: describe_tools
+#   args:
+#     tools: "{{ load_tools  }}"
+# - |
+#   You can use the tools by outputing the tool name followed by its arguments in square brackets, delimited by commas. You should begin your tool invocation with 'Act:'. Example: 'Action: tool_name[argument_1]' You can only invoke one tool at a time.
