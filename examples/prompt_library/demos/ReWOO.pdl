@@ -21,6 +21,6 @@ document:
           - action: WolframAlpha[Solve x + (2x - 10) + ((2x - 10) - 8) = 157]
           - thought: Find out the number of hours Thomas worked.
           - action: "LLM[What is x, given #E1]"
-          - thought: Find out the number of hours Thomas worked.
+          - thought: Calculate the number of hours Rebecca worked.
           - action: "Calculator[(2 * #E2 - 10) - 8]"
       show_plans: true

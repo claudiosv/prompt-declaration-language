@@ -5,7 +5,6 @@ defs:
 document:
   - include: examples/prompt_library/ReAct.pdl
   - include: examples/granite/granite_defs.pdl
-
   - def: filtered_tools
     call: filter_tools_by_name
     show_result: false
@@ -30,14 +29,14 @@ document:
     call: react
     show_result: true
     args:
-      context: "" #"{{ granite_models.granite_20b_multilang_lab_rc.system_prompt }}"
+      context: ""
       question: |-
         Is this the right answer to this question?
         "{{ QUESTION }}"
         Proposed answer: {{ GRANITE_RESULT.answer }}
 
         Please answer as True or False.
-      model: "ibm-meta/llama-2-70b-chat-q" # "{{ granite_models.granite_20b_multilang_lab_rc.id }}"
+      model: "ibm-meta/llama-2-70b-chat-q"
       tools: "{{ filtered_tools }}"
       trajectories: []
   - "\n\nThe answer '{{ GRANITE_RESULT.answer }}' has been verified as '{{LLAMA_RESULT.answer}}'."
