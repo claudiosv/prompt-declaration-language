@@ -703,7 +703,9 @@ python3 -m pdl.pdl --log <my-logfile> <my-example>
 
 ## Prompt Library: ReAct, ReWOO, CoT, PoT
 
-Some of the most common prompt patterns/techniques have been implemented as PDL functions.
+Some of the most common prompt patterns/techniques have been implemented as PDL functions. A demo of the ReAct template:
+
+<iframe src="https://ibm.ent.box.com/embed/s/9ko71cfbybhtn08z29bbkw74unl5faki?sortColumn=date" width="800" height="550" frameborder="0" allowfullscreen webkitallowfullscreen msallowfullscreen></iframe>
 
 ### Chain of Thought (Wei et al., 2022)
 
