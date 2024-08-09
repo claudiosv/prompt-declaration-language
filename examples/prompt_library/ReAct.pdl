@@ -34,15 +34,16 @@ defs:
     function:
       subject: str
     return:
-      - "[Document]\n"
-      - lan: python
-        code: |
-          import wikipedia
-          try:
-            result = wikipedia.summary(subject)
-          except wikipedia.WikipediaException as e:
-            result = str(e)
-      - "\n[End]\n"
+      - defs:
+          result:
+            lan: python
+            code: |
+              import wikipedia
+              try:
+                result = wikipedia.summary(subject)
+              except wikipedia.WikipediaException as e:
+                result = str(e)
+      - "[Document]\n{{ result|trim }}\n[End]\n"
 
   get_current_weather:
     function:
@@ -168,15 +169,22 @@ defs:
           args:
             trajectory: "{{ traj }}"
       - "Question: {{ question }}\nTho:"
+      # - defs:
+      #     temperature: 0.7
+      - def: temperature
+        show_result: false
+        document: "0.7"
       - repeat:
           - repeat:
               - def: THOUGHT
                 model: "{{ model }}"
                 parameters:
                   decoding_method: sample
-                  temperature: 0.7
-                  stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
+                  temperature: "{{ temperature }}"
+                  # stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                   include_stop_sequence: true
+                  top_k: "5"
+                test: "{{5}}"
             until: "{{ THOUGHT.endswith('Act:') }}"
           - def: action_raw
             model: "{{ model }}"
@@ -217,3 +225,7 @@ defs:
       - "\n\nJSON Output: "
       - data:
           answer: "{{ SUBJECT }}"
+      - model: ""
+        platform: watsonx
+        params:
+          repetition_penalty: "4"

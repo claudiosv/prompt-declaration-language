@@ -1,3 +1,12 @@
+from __future__ import annotations
+
+from datetime import date, datetime
+from enum import Enum
+from typing import Any, Dict, List, Optional
+
+from pydantic import BaseModel, Extra, Field, PositiveInt, confloat, conint, constr
+
+
 from enum import StrEnum
 from typing import Any, Literal, Optional, TypeAlias
 
@@ -9,7 +18,10 @@ from genai.schema import (
 )
 from pydantic import BaseModel, ConfigDict, Field, RootModel
 
+from pdl.pdl_watsonx_parameters import TextGenParameters, PDLVariable
+
 ScopeType: TypeAlias = dict[str, Any]
+
 
 ExpressionType: TypeAlias = Any
 # (
@@ -125,16 +137,15 @@ class BamModelBlock(ModelBlock):
     model_config = ConfigDict(extra="forbid")
     platform: Literal[ModelPlatform.BAM] = ModelPlatform.BAM
     prompt_id: Optional[str] = None
-    parameters: Optional[PDLTextGenerationParameters] = None
+    parameters: Optional[PDLTextGenerationParameters | ExpressionType] = None
     moderations: Optional[ModerationParameters] = None
     data: Optional[PromptTemplateData] = None
     constraints: Any = None  # TODO
 
-
 class WatsonxModelBlock(ModelBlock):
     model_config = ConfigDict(extra="forbid")
     platform: Literal[ModelPlatform.WATSONX] = ModelPlatform.WATSONX
-    params: Optional[dict] = None
+    params: Optional[PDLVariable | TextGenParameters] = None
     guardrails: Optional[bool] = None
     guardrails_hap_params: Optional[dict] = None
 

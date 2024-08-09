@@ -1,0 +1,26 @@
+# generate code:
+# datamodel-codegen  --input watsonx-ai.json --input-file-type openapi --output pdl/pdl_watsonx_parameters.py --use-unique-items-as-set --use-field-description --use-default-kwarg --collapse-root-models --target-python-version 3.12 --use-schema-description
+
+# ast grep:
+# sg scan -U -r rule.yml pdl/pdl_watsonx_parameters.py
+id: prefer-generator-expressions
+language: python
+rule:
+  pattern: $LIST
+  kind: type_parameter
+  inside:
+    kind: generic_type
+    inside:
+      kind: type
+      inside:
+        kind: assignment
+        inside:
+          kind: expression_statement
+          inside:
+            kind: block
+            inside:
+              kind: class_definition
+transform:
+  INNER:
+    substring: {source: $LIST, startChar: 1, endChar: -1 }
+fix: "[PDLVariable | $INNER]"

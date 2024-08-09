@@ -53,13 +53,13 @@ class BamModel:
     ) -> str:
         client = BamModel.get_model()
         params = parameters
-        params = set_default_model_params(params)
+        # params = set_default_model_params(params)
         text = ""
         for response in client.text.generation.create(
             model_id=model_id,
             prompt_id=prompt_id,
             input=model_input,
-            parameters=params.__dict__,
+            parameters=params,
             moderations=moderations,
             data=data,
         ):
@@ -79,13 +79,13 @@ class BamModel:
         data: Optional[BamPromptTemplateData],
     ) -> Generator[str, Any, None]:
         client = BamModel.get_model()
-        params = parameters
+        params = PDLTextGenerationParameters(**parameters)
         params = set_default_model_params(params)
         for response in client.text.generation.create_stream(
             model_id=model_id,
             prompt_id=prompt_id,
             input=model_input,
-            parameters=params.__dict__,
+            parameters=params,
             moderations=moderations,
             data=data,
         ):

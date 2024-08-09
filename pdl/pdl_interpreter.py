@@ -704,15 +704,27 @@ def step_call_model(
     else:
         model_input = scope["context"]
         input_trace = None
+
+    # evaluate model name
     model, errors = process_expr(scope, block.model, append(loc, "model"))
+
+    # evaluate model params
+    match block:
+        case bam if isinstance(block, BamModelBlock):
+            params, param_errors = process_expr(scope, block.parameters, loc)
+            errors += param_errors
+
+            concrete_block = block.model_copy(update={"parameters": params, "model": model, "model_input": model_input})
+
     if len(errors) != 0:
         trace = handle_error(
             block, loc, None, errors, block.model_copy(update={"input": input_trace})
         )
         return None, "", scope, trace
+
     try:
         append_log(state, "Model Input", model_input)
-        gen = yield from generate_client_response(state, block, model, model_input)
+        gen = yield from generate_client_response(state, concrete_block)
         append_log(state, "Model Output", gen)
         trace = block.model_copy(update={"result": gen, "input": input_trace})
         return gen, gen, scope, trace
@@ -730,21 +742,22 @@ def step_call_model(
 def generate_client_response(  # pylint: disable=too-many-arguments
     state: InterpreterState,
     block: BamModelBlock | WatsonxModelBlock,
-    model: str,
-    model_input: str,
 ) -> Generator[YieldMessage, Any, str]:
     match state.batch:
         case 0:
             output = yield from generate_client_response_streaming(
-                state, block, model, model_input
+                state,
+                block,
             )
         case 1:
             output = yield from generate_client_response_single(
-                state, block, model, model_input
+                state,
+                block,
             )
         case _:
             output = yield from generate_client_response_batching(
-                state, block, model, model_input
+                state,
+                block,
             )
     return output
 
@@ -752,24 +765,23 @@ def generate_client_response(  # pylint: disable=too-many-arguments
 def generate_client_response_streaming(
     state: InterpreterState,
     block: BamModelBlock | WatsonxModelBlock,
-    model: str,
-    model_input: str,
 ) -> Generator[YieldMessage, Any, str]:
     text_stream: Generator[str, Any, None]
+
     match block:
         case BamModelBlock():
             text_stream = BamModel.generate_text_stream(
-                model_id=model,
+                model_id=block.model,
                 prompt_id=block.prompt_id,
-                model_input=model_input,
+                model_input=block.model_input,
                 parameters=block.parameters,
                 moderations=block.moderations,
                 data=block.data,
             )
         case WatsonxModelBlock():
             text_stream = WatsonxModel.generate_text_stream(
-                model_id=model,
-                prompt=model_input,
+                model_id=block.model,
+                prompt=block.model_input,
                 params=block.params,
                 guardrails=block.guardrails,
                 guardrails_hap_params=block.guardrails_hap_params,
