@@ -138,10 +138,10 @@ defs:
         input:
           document: "{{ subject }}"
 
-  Calculator:
-    function:
-      subject: str
-    return: "<Calculator RESULT>"
+  # Calculator:
+  #   function:
+  #     subject: str
+  #   return: "<Calculator RESULT>"
 
   Wikipedia:
     function:
@@ -185,6 +185,15 @@ defs:
         repeat: |
           ({{i}}) {{ sig }}: {{ desc }}
       - "\n"
+      - for:
+          tool: "{{ tools }}"
+        repeat:
+          for:
+            example: "{{ tool.examples }}"
+          repeat:
+            call: rewoo_block
+            args:
+              trajectory: "{{ example }}"
       - for:
           traj: "{{ trajectories }}"
         repeat:
