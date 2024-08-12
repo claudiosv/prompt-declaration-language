@@ -1,14 +1,8 @@
 from __future__ import annotations
 
 from datetime import date, datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional
-
-from pydantic import BaseModel, Extra, Field, PositiveInt, confloat, conint, constr
-
-
-from enum import StrEnum
-from typing import Any, Literal, Optional, TypeAlias
+from enum import Enum, StrEnum
+from typing import Any, Dict, List, Literal, Optional, TypeAlias
 
 from genai.schema import (
     DecodingMethod,
@@ -16,9 +10,19 @@ from genai.schema import (
     PromptTemplateData,
     TextGenerationParameters,
 )
-from pydantic import BaseModel, ConfigDict, Field, RootModel
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Extra,
+    Field,
+    PositiveInt,
+    RootModel,
+    confloat,
+    conint,
+    constr,
+)
 
-from pdl.pdl_watsonx_parameters import TextGenParameters, PDLVariable
+from pdl.pdl_watsonx_parameters import PDLVariable, TextGenParameters
 
 ScopeType: TypeAlias = dict[str, Any]
 
@@ -141,6 +145,7 @@ class BamModelBlock(ModelBlock):
     moderations: Optional[ModerationParameters] = None
     data: Optional[PromptTemplateData] = None
     constraints: Any = None  # TODO
+
 
 class WatsonxModelBlock(ModelBlock):
     model_config = ConfigDict(extra="forbid")

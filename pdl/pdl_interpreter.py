@@ -710,11 +710,28 @@ def step_call_model(
 
     # evaluate model params
     match block:
-        case bam if isinstance(block, BamModelBlock):
+        case _ if isinstance(block, BamModelBlock):
             params, param_errors = process_expr(scope, block.parameters, loc)
             errors += param_errors
 
-            concrete_block = block.model_copy(update={"parameters": params, "model": model, "model_input": model_input})
+            concrete_block = block.model_copy(
+                update={
+                    "parameters": params,
+                    "model": model,
+                    "model_input": model_input,
+                }
+            )
+        case _ if isinstance(block, WatsonxModelBlock):
+            params, param_errors = process_expr(scope, block.parameters, loc)
+            errors += param_errors
+
+            concrete_block = block.model_copy(
+                update={
+                    "parameters": params,
+                    "model": model,
+                    "model_input": model_input,
+                }
+            )
 
     if len(errors) != 0:
         trace = handle_error(

@@ -12,6 +12,7 @@ from pydantic import BaseModel, Extra, Field, PositiveInt, confloat, conint, con
 
 PDLVariable: TypeAlias = str
 
+
 class TextGenCommon(BaseModel):
     """
     A prompt to be used to infer the next tokens. Each request expects a `project_id` or a `space_id`, and the `project` or `space` must have an associated WML instance that will be used for limits and billing (if a paid plan).
@@ -33,7 +34,9 @@ class TextGenLengthPenalty(BaseModel):
 
     """
 
-    decay_factor: Optional[PDLVariable | confloat(gt=1.0)] = Field(default=None, example=2.5)
+    decay_factor: Optional[PDLVariable | confloat(gt=1.0)] = Field(
+        default=None, example=2.5
+    )
     """
     Represents the factor of exponential decay.
     Larger values correspond to more aggressive decay.
@@ -104,8 +107,8 @@ class DecodingMethod(Enum):
 
     """
 
-    sample = 'sample'
-    greedy = 'greedy'
+    sample = "sample"
+    greedy = "greedy"
 
 
 class TextGenParameters(BaseModel):
@@ -115,7 +118,7 @@ class TextGenParameters(BaseModel):
     """
 
     decoding_method: Optional[PDLVariable | DecodingMethod] = Field(
-        default='sample', example='greedy'
+        default="sample", example="greedy"
     )
     """
     Represents the strategy used for picking the tokens during generation of the output text.
@@ -153,14 +156,19 @@ class TextGenParameters(BaseModel):
 
     """
     stop_sequences: Optional[PDLVariable | Set[str]] = Field(
-        default=None, example=['fail'], max_items=6, min_items=0,
+        default=None,
+        example=["fail"],
+        max_items=6,
+        min_items=0,
     )
     """
     Stop sequences are one or more strings which will cause the text generation to stop if/when they are produced as part of the output.
     Stop sequences encountered prior to the minimum number of tokens being generated will be ignored.
 
     """
-    temperature: Optional[PDLVariable | confloat(ge=0.0, le=2.0)] = Field(default=1, example=1.5)
+    temperature: Optional[PDLVariable | confloat(ge=0.0, le=2.0)] = Field(
+        default=1, example=1.5
+    )
     """
     A value used to modify the next-token probabilities in sampling mode.
     Values less than 1.0 sharpen the probability distribution, resulting in "less random" output.
@@ -168,7 +176,9 @@ class TextGenParameters(BaseModel):
     A value of 1.0 has no effect.
 
     """
-    time_limit: Optional[PDLVariable | PositiveInt] = Field(default=None, example=600000)
+    time_limit: Optional[PDLVariable | PositiveInt] = Field(
+        default=None, example=600000
+    )
     """
     Time limit in milliseconds - if not completed within this time, generation will stop.
     The text generated so far will be returned along with the TIME_LIMIT stop reason.
@@ -176,14 +186,18 @@ class TextGenParameters(BaseModel):
     Depending on the users plan, and on the model being used, there may be an enforced maximum time limit.
 
     """
-    top_k: Optional[PDLVariable | conint(ge=1, le=100)] = Field(default=None, example=50)
+    top_k: Optional[PDLVariable | conint(ge=1, le=100)] = Field(
+        default=None, example=50
+    )
     """
     The number of highest probability vocabulary tokens to keep for top-k-filtering.
     Only applies for sampling mode. When decoding_strategy is set to sample,
     only the top_k most likely tokens are considered as candidates for the next generated token.
 
     """
-    top_p: Optional[PDLVariable | confloat(le=1.0, gt=0.0)] = Field(default=1, example=0.5)
+    top_p: Optional[PDLVariable | confloat(le=1.0, gt=0.0)] = Field(
+        default=1, example=0.5
+    )
     """
     Similar to top_k except the candidates to generate the next token are the most likely tokens
     with probabilities that add up to at least top_p. Also known as nucleus sampling.
@@ -336,7 +350,7 @@ class TextGenParameters(BaseModel):
 #     Either `space_id` or `project_id` has to be given.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -506,7 +520,7 @@ class TextGenParameters(BaseModel):
 #     The `id` of the model for inference.
 
 #     """
-#     model_version: Optional[PDLVariable | 
+#     model_version: Optional[PDLVariable |
 #             constr(pattern=r'^\d+.\d+.\d+$', min_length=5, max_length=20)
 #         ] = Field(default=None, example='1.0.1')
 #     """
@@ -696,7 +710,7 @@ class TextGenParameters(BaseModel):
 #     Either `space_id` or `project_id` has to be given.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -1493,7 +1507,7 @@ class TextGenParameters(BaseModel):
 #     Either `space_id` or `project_id` has to be given.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -1532,7 +1546,7 @@ class TextGenParameters(BaseModel):
 
 #     """
 
-#     serving_name: Optional[PDLVariable | 
+#     serving_name: Optional[PDLVariable |
 #             constr(pattern=r'^[a-z,0-9,_]+$', min_length=3, max_length=36)
 #         ] = Field(default=None, example='churn')
 #     """
@@ -1860,7 +1874,7 @@ class TextGenParameters(BaseModel):
 #     The name of the resource.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -2471,7 +2485,7 @@ class TextGenParameters(BaseModel):
 #     Either `space_id` or `project_id` has to be given.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -2555,7 +2569,7 @@ class TextGenParameters(BaseModel):
 #     Either `space_id` or `project_id` has to be given.
 
 #     """
-#     project_id: Optional[PDLVariable | 
+#     project_id: Optional[PDLVariable |
 #             constr(pattern=r'[a-zA-Z0-9-]*', min_length=36, max_length=36)
 #         ] = Field(default=None, example='12ac4cf1-252f-424b-b52d-5cdd9814987f')
 #     """
@@ -2796,7 +2810,7 @@ class TextGenParameters(BaseModel):
 
 
 # class ModelVersion(BaseModel):
-#     number: Optional[PDLVariable | 
+#     number: Optional[PDLVariable |
 #             constr(
 #                 pattern=r'^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
 #             )
@@ -3329,7 +3343,7 @@ class TextGenParameters(BaseModel):
 #         extra = Extra.forbid
 
 #     url: constr(pattern=r'.*')
-#     additional_information: Optional[PDLVariable | 
+#     additional_information: Optional[PDLVariable |
 #             List[List[ExternalPromptAdditionalInformation1]]
 #         ] = Field(default=None, min_items=1)
 
