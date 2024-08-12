@@ -52,8 +52,15 @@ class BamModel:
         data: Optional[BamPromptTemplateData],
     ) -> str:
         client = BamModel.get_model()
-        params = parameters
-        # params = set_default_model_params(params)
+
+        params = (
+            parameters
+            if isinstance(parameters, PDLTextGenerationParameters)
+            else PDLTextGenerationParameters(**parameters)
+        )
+
+        params = set_default_model_params(params)
+
         text = ""
         for response in client.text.generation.create(
             model_id=model_id,
@@ -79,8 +86,15 @@ class BamModel:
         data: Optional[BamPromptTemplateData],
     ) -> Generator[str, Any, None]:
         client = BamModel.get_model()
-        params = PDLTextGenerationParameters(**parameters)
+
+        params = (
+            parameters
+            if isinstance(parameters, PDLTextGenerationParameters)
+            else PDLTextGenerationParameters(**parameters)
+        )
+
         params = set_default_model_params(params)
+
         for response in client.text.generation.create_stream(
             model_id=model_id,
             prompt_id=prompt_id,

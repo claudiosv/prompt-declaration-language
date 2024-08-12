@@ -137,7 +137,7 @@ class BamModelBlock(ModelBlock):
     model_config = ConfigDict(extra="forbid")
     platform: Literal[ModelPlatform.BAM] = ModelPlatform.BAM
     prompt_id: Optional[str] = None
-    parameters: Optional[PDLTextGenerationParameters | ExpressionType] = None
+    parameters: Optional[PDLTextGenerationParameters | dict] = None
     moderations: Optional[ModerationParameters] = None
     data: Optional[PromptTemplateData] = None
     constraints: Any = None  # TODO
