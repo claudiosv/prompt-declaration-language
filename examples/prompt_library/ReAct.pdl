@@ -12,18 +12,18 @@ defs:
               type: "{{ trajectory.keys()|first }}"
           - if: "{{ type == 'question'}}"
             then: |
-              Question: {{ trajectory[type] }}
+              Question: {{ trajectory[type]|trim }}
           - if: "{{ type == 'thought'}}"
             then: |
-              Tho: {{ trajectory[type] }}
+              Tho: {{ trajectory[type]|trim }}
           - if: "{{ type == 'action'}}"
             then: |
-              Act: {{ trajectory[type] }}
+              Act: {{ trajectory[type]|trim }}
           - if: "{{ type == 'observation'}}"
             then: |
-              Obs: {{ trajectory[type] }}
+              Obs: {{ trajectory[type]|trim }}
           - if: "{{ type not in ['question', 'thought', 'action', 'observation'] }}"
-            then: "{{ type }}: {{ trajectory[type] }}"
+            then: "{{ type }}: {{ trajectory[type]|trim }}"
       - "\n"
 
   demonstrate_tools:
@@ -112,7 +112,6 @@ defs:
                   - model: "{{ model }}"
                     parameters:
                       decoding_method: sample
-                      repetition_penalty: 1.1
                       temperature: "{{ temperature }}"
                       stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                       include_stop_sequence: false
@@ -153,13 +152,16 @@ defs:
           args:
             trajectory: "{{ traj }}"
       - "Question: {{ question }}\nTho:"
-      - repeat:
+      - defs:
+          temperature: 0.05
+          decoding_method: "greedy"
+        repeat:
           - repeat:
               - def: THOUGHT
                 model: "{{ model }}"
                 parameters:
-                  decoding_method: sample
-                  temperature: 0.7
+                  decoding_method: "{{ decoding_method }}"
+                  temperature: "{{ temperature }}"
                   stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                   include_stop_sequence: true
             until: "{{ THOUGHT.endswith('Act:') }}"
@@ -168,8 +170,8 @@ defs:
             parser: json
             spec: {name: str, arguments: obj}
             parameters:
-              decoding_method: sample
-              temperature: 0.7
+              decoding_method: "{{ decoding_method }}"
+              temperature: "{{ temperature }}"
               stop_sequences: ["\n", "<|endoftext|>"]
               include_stop_sequence: false
           - if: "{{ action.name != 'Finish' }}"
@@ -182,9 +184,8 @@ defs:
                       arguments: "{{ action.arguments }}"
                   - model: "{{ model }}"
                     parameters:
-                      decoding_method: sample
-                      repetition_penalty: 1.1
-                      temperature: 0.7
+                      decoding_method: "{{ decoding_method }}"
+                      temperature: "{{ temperature }}"
                       stop_sequences: ["\n", "Act:", "Obs:", "Tho:"]
                       include_stop_sequence: false
                 else: "Invalid action. Valid actions are {{ TOOL_INFO.signatures|join(', ') }} and Finish[<answer>]."
